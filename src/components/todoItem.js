@@ -2,6 +2,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import { Form } from "react-bootstrap";
 import Stack from "react-bootstrap/Stack";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 function TodoItem({ handleCheck, todo, deleteTodo }) {
   return (
@@ -19,13 +20,7 @@ function TodoItem({ handleCheck, todo, deleteTodo }) {
               />
             </div>
             <div>
-              <Button
-                variant="outline-secondary"
-                id="button-addon2"
-                onClick={() => deleteTodo(todo.id)}
-              >
-                Delete
-              </Button>
+              <RiDeleteBin5Line onClick={() => deleteTodo(todo.id)} />
             </div>
           </Stack>
         </ListGroup.Item>
