@@ -1,13 +1,21 @@
 import TodoItem from "./todoItem";
+import ListGroup from "react-bootstrap/ListGroup";
 
 function TodoList({ displayTodos, handleCheck, deleteTodo }) {
   return (
     <>
-      <ul>
+      <ListGroup variant="flush">
         {displayTodos().map((todo) => {
-          return <TodoItem key={todo.id} handleCheck={handleCheck} todo={todo}  deleteTodo={deleteTodo}/>;
+          return (
+            <TodoItem
+              key={todo.id}
+              handleCheck={handleCheck}
+              todo={todo}
+              deleteTodo={deleteTodo}
+            />
+          );
         })}
-      </ul>
+      </ListGroup>
     </>
   );
 }

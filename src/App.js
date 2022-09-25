@@ -1,8 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import UserInput from "./components/input";
+import TaskInput from "./components/input";
 import TodoList from "./components/todoList";
-import Filters from "./components/filters";
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [todoList, setTodoList] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
@@ -12,7 +12,7 @@ function App() {
   function AddTodo(x) {
     setTodoList((oldList) => [
       ...oldList,
-      { value: x, status: false, id: Math.random() },
+      { text: x, complete: false, id: Math.random() },
     ]);
   }
 
@@ -23,9 +23,9 @@ function App() {
   const displayTodos = () => {
     switch (filter) {
       case "Completed":
-        return todoList.filter((todo) => todo.status);
+        return todoList.filter((todo) => todo.complete);
       case "Incomplete":
-        return todoList.filter((todo) => !todo.status);
+        return todoList.filter((todo) => !todo.complete);
       case "All":
       default:
         return todoList;
@@ -36,7 +36,7 @@ function App() {
     setTodoList((oldTodos) => {
       return oldTodos.map((todo) => {
         if (todo.id === id) {
-          todo.status = !todo.status;
+          todo.complete = !todo.complete;
         }
         return todo;
       });
@@ -50,7 +50,7 @@ function App() {
   const uncheckAll = () => {
     setTodoList((oldTodos) => {
       return oldTodos.map((todo) => {
-        todo.status = false;
+        todo.complete = false;
         return todo;
       });
     });
@@ -59,7 +59,7 @@ function App() {
   const checkAll = () => {
     setTodoList((oldTodos) => {
       return oldTodos.map((todo) => {
-        todo.status = true;
+        todo.complete = true;
         return todo;
       });
     });
@@ -71,18 +71,21 @@ function App() {
 
   return (
     <>
-      <h1>Todo List</h1>
-      <UserInput AddTodo={AddTodo} />
-      <Filters
-        updateFilter={updateFilter}
-        uncheckAll={uncheckAll}
-        checkAll={checkAll}
-      />
-      <TodoList
-        displayTodos={displayTodos}
-        handleCheck={handleCheck}
-        deleteTodo={deleteTodo}
-      />
+      <div className=" App gradient-custom">
+        <h1 className="title pt-3">Todo List</h1>
+        <TaskInput
+          AddTodo={AddTodo}
+          updateFilter={updateFilter}
+          uncheckAll={uncheckAll}
+          checkAll={checkAll}
+        />
+
+        <TodoList
+          displayTodos={displayTodos}
+          handleCheck={handleCheck}
+          deleteTodo={deleteTodo}
+        />
+      </div>
     </>
   );
 }
